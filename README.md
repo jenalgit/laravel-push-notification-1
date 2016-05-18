@@ -13,7 +13,7 @@ With this package you can create your Payload collection for any relevant event 
 Add follow line into "require" section in your composer.json:
 
 ```json
-"developerdynamo/push-notification": "1.*"
+"developerdynamo/laravel-push-notification": "0.*"
 ```
 
 Update composer with command:
