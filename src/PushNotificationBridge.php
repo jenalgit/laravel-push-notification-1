@@ -53,9 +53,11 @@ class PushNotificationBridge
 	 */
 	public function queue(Payload $payload, $tokens, $queue = null)
 	{
+		//Serialize data
 		$payload = serialize($payload);
 		$tokens = serialize($tokens);
 		
+		//Push in queue
 		return $this->queue->push('bridge@handleQueuedSending', compact('payload', 'tokens'), $queue);
 	}
 	
@@ -69,11 +71,14 @@ class PushNotificationBridge
 	 */
 	public function handleQueuedSending($job, $data)
 	{
+		//Unserialize data
 		$payload = unserialize($data['payload']);
 		$tokens = unserialize($data['tokens']);
 		
+		//Execute task
 		$this->send($payload, $tokens);
 		
+		//Delete job from the queue
 		$job->delete();
 	}
 	

@@ -92,7 +92,7 @@ abstract class Payload
 	 * Recursive methods to strip html tags from your payload attributes
 	 * 
 	 * @param array $payload
-	 * @return void
+	 * @return array
 	 */
 	public function rawFilter($arr)
 	{
