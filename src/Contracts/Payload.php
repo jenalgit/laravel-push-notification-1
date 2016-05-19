@@ -98,7 +98,7 @@ abstract class Payload
 	{
 		foreach ($arr as $key => $value){
 			if(is_array($value))
-				$this->applyRawFilter($value);
+				$this->rawFilter($value);
 				
 			$arr[$key] = strip_tags($value);
 		}
