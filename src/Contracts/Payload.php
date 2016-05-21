@@ -89,7 +89,7 @@ abstract class Payload
 	}
 	
 	/**
-	 * Recursive methods to strip html tags from your payload attributes
+	 * Recursive methods to strip html tags from payload attributes
 	 * 
 	 * @param array $payload
 	 * @return array
@@ -98,9 +98,9 @@ abstract class Payload
 	{
 		foreach ($arr as $key => $value){
 			if(is_array($value))
-				$this->rawFilter($value);
-				
-			$arr[$key] = strip_tags($value);
+				$arr[$key] = $this->rawFilter($value);
+			else
+				$arr[$key] = strip_tags($value);
 		}
 		
 		return $arr;
