@@ -57,6 +57,17 @@ abstract class Payload
 	}
 	
 	/**
+	 * Send Payload to devices list
+	 * 
+	 * @param Collection $tok
+	 * @return void
+	 */
+	protected function send($tokens)
+	{
+		\NotificationBridge::queue($this, $tokens);
+	}
+	
+	/**
 	 * Check if exists mandatory field to compose essential notification payload
 	 * 
 	 * @throws \Exception
