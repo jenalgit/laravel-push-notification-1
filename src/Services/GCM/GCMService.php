@@ -41,11 +41,11 @@ class GCMService implements ServiceInterface
     	
 		$gcm_message = [
 				"registration_ids" => $tokens,
-				"data" => $payload->getAndroidFormat(),
+				"data" => $payload->getGcmFormat(),
 		];
 		
 		$headers = [
-				"Authorization: key=".Config::get('pushnotification.android.apiKey'),
+				"Authorization: key=".Config::get('pushnotification.gcm.apiKey'),
 				"Content-Type: application/json"
 		];
 		

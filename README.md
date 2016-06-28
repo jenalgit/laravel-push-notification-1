@@ -7,7 +7,8 @@ With this package you can create your Payload collection for any relevant event 
 
 ###Platform actually supported (Desktop and Mobile)
 - iOS (Only mobile App)
-- android, Chrome, Firefox
+- Android
+- Chrome, Firefox
 
 #Install
 Add follow line into "require" section in your composer.json:
@@ -96,7 +97,7 @@ By default this two columns names are cosidered `"platform"` and `"device_token"
 | Field        |
 +--------------+
 | id           |
-| platform     | enum (android, ios)
+| platform     | enum (android, ios, web)
 | device_token |
 | created_at   |
 | updated_at   |
@@ -139,7 +140,7 @@ class YourDeviceTokenTable extends Model
 You can design your table as you want, only this two fields are mandatory to work with PushNotification Package. 
 
 #Payload
-You just create a class that implements `DeveloperDynamo\PushNotification\Contracts\Payload` and overwrite `iosPayload` and `androidPayload` properties with your payload content.
+You just create a class that implements `DeveloperDynamo\PushNotification\Contracts\Payload` and overwrite `apsPayload` and `gcmPayload` properties with your payload content.
 
 ```php
 namespace App\Payload;
@@ -158,7 +159,7 @@ class AddPhotoPayload extends Payload
 	public function __construct(User user)
 	{
 		//IOS payload format	
-		$this->iosPayload = [
+		$this->apsPayload = [
 				"alert" => [
 					"title" => $user->first_name." posted a photo",
 					"body" 	=> $user->first_name." added a new photo in her gallery",
@@ -166,7 +167,7 @@ class AddPhotoPayload extends Payload
 		];
 		
 		//Android payload format
-		$this->androidPayload = [
+		$this->gcmPayload = [
 				"title" 	=> $user->first_name." posted a photo",
 				"message" 	=> $user->first_name." added a new photo in her gallery",
 		];

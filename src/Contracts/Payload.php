@@ -9,39 +9,39 @@ abstract class Payload
 	 * 
 	 * @var array
 	 */
-    protected $iosPayload = [];
+    protected $apsPayload = [];
     
     /**
      * Android payload structure
      * 
      * @var unknown
      */
-    protected $androidPayload = [];
+    protected $gcmPayload = [];
     
     /**
 	 * Basic mandatory attributes for ios
      *
      * @var array
      */
-    private $iosMandatoryFields = ['title', 'body'];
+    private $apsMandatoryFields = ['title', 'body'];
     
     /**
 	 * Basic mandatory attributes for android
      *
      * @var array
      */
-    private $androidMandatoryFields = ['title', 'message'];
+    private $gcmMandatoryFields = ['title', 'message'];
 	
 	/**
 	 * Generate payload for ios plaform
 	 * 
 	 * @return array
 	 */
-	final public function getIosFormat()
+	final public function getApsFormat()
 	{
-		$this->checkIosMandatoryFields();
+		$this->checkApsMandatoryFields();
 		
-		return ["aps" => $this->rawFilter($this->iosPayload)];
+		return ["aps" => $this->rawFilter($this->apsPayload)];
 	}
 	
 	/**
@@ -49,11 +49,11 @@ abstract class Payload
 	 * 
 	 * @return array
 	 */
-	final public function getAndroidFormat()
+	final public function getGcmFormat()
 	{
-		$this->checkAndroidMandatoryFields();
+		$this->checkGcmMandatoryFields();
 		
-		return $this->rawFilter($this->androidPayload);
+		return $this->rawFilter($this->gcmPayload);
 	}
 	
 	/**
@@ -74,10 +74,10 @@ abstract class Payload
 	 * @throws \Exception
 	 * @return boolean
 	 */
-	public function checkIosMandatoryFields()
+	public function checkApsMandatoryFields()
 	{
-		foreach ($this->iosMandatoryFields as $field){
-			if(! array_key_exists($field, $this->iosPayload) )
+		foreach ($this->apsMandatoryFields as $field){
+			if(! array_key_exists($field, $this->apsPayload) )
 				return false;
 		}
 		
@@ -90,10 +90,10 @@ abstract class Payload
 	 * @throws \Exception
 	 * @return boolean
 	 */
-	public function checkAndroidMandatoryFields()
+	public function checkGcmMandatoryFields()
 	{
-		foreach ($this->androidMandatoryFields as $field){
-			if(! array_key_exists($field, $this->androidPayload) )
+		foreach ($this->gcmMandatoryFields as $field){
+			if(! array_key_exists($field, $this->gcmPayload) )
 				return false;
 		}
 		

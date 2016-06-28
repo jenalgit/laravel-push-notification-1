@@ -2,7 +2,7 @@
 
 return [
 
-    "ios" => [
+    "aps" => [
     	/*
     	 * A valid PEM certificate generated from Apple Push Service certificate
     	 */
@@ -14,7 +14,7 @@ return [
         "passPhrase"  	=> ""
     ],
 	
-    "android" => [
+    "gcm" => [
     	/*
     	 * Google GCM api key
     	 * You can retrieve your key in Google Developer Console

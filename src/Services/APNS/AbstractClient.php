@@ -39,8 +39,8 @@ class AbstractClient
 		 * Socket content creation
 		 */
 		$ctx = stream_context_create();
-		stream_context_set_option($ctx, 'ssl', 'local_cert', Config::get('pushnotification.ios.certificate'));
-		stream_context_set_option($ctx, 'ssl', 'passphrase', Config::get('pushnotification.ios.passPhrase'));
+		stream_context_set_option($ctx, 'ssl', 'local_cert', Config::get('pushnotification.aps.certificate'));
+		stream_context_set_option($ctx, 'ssl', 'passphrase', Config::get('pushnotification.aps.passPhrase'));
 		
 		/*
 		 * Open connection with apns server

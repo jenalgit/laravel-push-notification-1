@@ -37,7 +37,7 @@ class ApnService extends AbstractClient implements ServiceInterface
 		$this->connect();
 
 		// Encode payload as JSON
-		$json_payload = json_encode($payload->getIosFormat());
+		$json_payload = json_encode($payload->getApsFormat());
 		
 		// Build the binary notification to each token
 		$data = '';
