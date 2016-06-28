@@ -13,7 +13,7 @@ class PushNotificationBridge
 	 * @var array
 	 */
 	private $services = [
-			Services\GCM\AndroidService::class,
+			Services\GCM\GCMService::class,
 			Services\APNS\ApnService::class,
 	];
 	
@@ -102,7 +102,7 @@ class PushNotificationBridge
 			}
 			
 			//Retrieve tokens for specific driver's platform
-			$platform_tokens = $this->dispatchDeviceToken($instance->getPlatformName(), $tokens);
+			$platform_tokens = $this->dispatchDeviceToken($instance->getPlatform(), $tokens);
 			
 			//Send payload to tokens across driver's platform
 			$instance->send($payload, $platform_tokens);
@@ -112,7 +112,7 @@ class PushNotificationBridge
 	/**
 	 * Create 1D array for specific platform processed
 	 * 
-	 * @param string $platform
+	 * @param mixed $platform
 	 * @param array $tokens is an array [platform:'xxx', registration_id:'xxxxxx']
 	 */
 	protected function dispatchDeviceToken($platform, $tokens)
@@ -128,10 +128,14 @@ class PushNotificationBridge
 			//Use trait method
 			$tk = $tk->getTokenArray();
 				
-			//filtering tokens
-			if($tk['platform'] === $platform){
-				$platform_tokens[] = $tk['device_token'];
-			}
+			//filtering tokens for platform
+			if(is_string($platform))
+				if($tk['platform'] === $platform)
+					$platform_tokens[] = $tk['device_token'];
+			
+			if(is_array($platform))
+				if(in_array($tk['platform'], $platform))
+					$platform_tokens[] = $tk['device_token'];
 		}
 		
 		return $platform_tokens;

@@ -54,7 +54,7 @@ class ApnService extends AbstractClient implements ServiceInterface
 	 * 
 	 * @return string
 	 */
-	public function getPlatformName() 
+	public function getPlatform() 
 	{
 		return $this->platform;
 	}

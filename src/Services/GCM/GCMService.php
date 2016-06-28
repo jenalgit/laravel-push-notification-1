@@ -6,14 +6,14 @@ use Config;
 use DeveloperDynamo\PushNotification\Services\ServiceInterface;
 use DeveloperDynamo\PushNotification\Contracts\Payload;
 
-class AndroidService implements ServiceInterface
+class GCMService implements ServiceInterface
 {
 	/**
 	 * Name of platform
 	 * 
 	 * @var string
 	 */
-	protected $platform = 'android';
+	protected $platform = ['android', 'web'];
 	
 	/**
 	 * GCM server endpoint
@@ -71,7 +71,7 @@ class AndroidService implements ServiceInterface
 	 * 
 	 * @return string
 	 */
-	public function getPlatformName() 
+	public function getPlatform() 
 	{
 		return $this->platform;
 	}
