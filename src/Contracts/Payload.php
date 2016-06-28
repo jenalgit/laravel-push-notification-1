@@ -60,11 +60,12 @@ abstract class Payload
 	 * Send Payload to devices list
 	 * 
 	 * @param Collection $tok
+	 * @param string $queue
 	 * @return void
 	 */
-	protected function send($tokens)
+	protected function send($tokens, $queue = null)
 	{
-		\NotificationBridge::queue($this, $tokens);
+		\NotificationBridge::queue($this, $tokens, $queue);
 	}
 	
 	/**

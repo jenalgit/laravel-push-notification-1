@@ -81,7 +81,7 @@ You should have a model to store devices informations into your database. To fit
 ```php
 use DeveloperDynamo\PushNotification\TokenTrait;
 
-class YourPushTokenTable extends Model
+class YourDeviceTokenTable extends Model
 {
     use TokenTrait;
 }
@@ -121,7 +121,7 @@ For example, in your table you have platform column named "os" instead of "platf
 You can overwrite standard name used from package using `$columnName` property:
 
 ```php
-class YourPushTokenTable extends Model
+class YourDeviceTokenTable extends Model
 {
     use TokenTrait;
     
@@ -177,7 +177,7 @@ You can proceed to create your payload collection for every event or message tha
 
 #Send
 Now you are able to get a list of devices tokens from your DB and you have a payload for your specific event.
-To send a payload to a list of devices you can use `NotificationBridge`.
+To send a payload to a list of devices you can use `send` method inherited from Payload class.
 
 ###Regular send
 ```php
@@ -185,27 +185,22 @@ To send a payload to a list of devices you can use `NotificationBridge`.
 $payload = new AddPhotoPayload(User::findOrFail(1));
 
 //Retrieve devices list with your own criteria
-$tokens = YourPushTokenTable::all();
+$tokens = YourDeviceTokenTable::all();
 
 //send directly
-NotificationBridge::send($payload, $tokens);
+$payload->send($tokens);
 ```
 
 ###Send by Queue 
-You can use queue to send push notifications to improve your system performace
+Package use Queue to send notification natively to execute your send task in backgroud. You need to set your Queue provider in config/queue.php and your payload will be sent on queue.
+
+With second param of "send" method you can schedule job in a specific queue.
 
 ```php
-//Create payload
-$payload = new AddPhotoPayload(User::findOrFail(1));
-
-//Retrieve devices list with your own criteria
-$tokens = YourPushTokenTable::all();
-
 //push in queue
-NotificationBridge::queue($payload, $tokens, "queue-name");
+$payload->send($payload, $tokens, "your-queue-name");
 ```
 
-With latest parameter you can schedule job in a specific queue. 
 
 #Desktop notification
 Thanks to GCM serivce you can send notifications to a Desktop browsers, Chrome and Firefox are supported, because both browsers implements a GCM client.
